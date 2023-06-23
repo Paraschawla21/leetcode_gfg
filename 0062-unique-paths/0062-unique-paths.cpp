@@ -9,6 +9,16 @@ public:
     }
     int uniquePaths(int m, int n) {
         vector<vector<int>> dp(m+1, vector<int>(n+1, -1));
-        return solve(0, 0, m, n, dp);
+        // return solve(0, 0, m, n, dp);
+        
+        // google's interview solution
+        int N = n + m - 2;
+        int r = m - 1;
+        double ans = 1;
+        for (int i = 1; i <= r; i++)
+        {
+            ans = ans * (N - r + i) / i;
+        }
+        return ans;
     }
 };
