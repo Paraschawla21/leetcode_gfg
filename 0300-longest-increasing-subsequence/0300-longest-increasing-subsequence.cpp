@@ -15,23 +15,23 @@ public:
 
     }
     int lengthOfLIS(vector<int>& nums) {
-        // vector<int> ans;
-        // for (int num : nums)
-        // {
-        //     if (ans.empty() || ans[ans.size() - 1] < num)
-        //     {
-        //         ans.push_back(num);
-        //     }
-        //     else
-        //     {
-        //         // Find the index of the first element in ans which is >= num
-        //         auto it = lower_bound(ans.begin(), ans.end(), num);
-        //         *it = num;
-        //     }
-        // }
-        // return ans.size();
         int n = nums.size();
-        vector<vector<int>> dp(n, vector<int>(n+1, -1));
-        return solve(0, -1, nums, n, dp);
+        vector<int> ans;
+        for (int num : nums)
+        {
+            if (ans.empty() || ans[ans.size() - 1] < num)
+            {
+                ans.push_back(num);
+            }
+            else
+            {
+                // Find the index of the first element in ans which is >= num
+                auto it = lower_bound(ans.begin(), ans.end(), num);
+                *it = num;
+            }
+        }
+        return ans.size();
+        // vector<vector<int>> dp(n, vector<int>(n+1, -1));
+        // return solve(0, -1, nums, n, dp);
     }
 };
