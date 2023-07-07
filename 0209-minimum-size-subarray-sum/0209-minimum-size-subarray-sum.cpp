@@ -4,20 +4,20 @@ public:
         int n = nums.size();
         int i = 0;
         int j = 0;
-        int ans = n;
+        int ans = INT_MAX;
         int sum = 0;
         while (j < n)
         {
             sum += nums[j];
             while (sum >= target)
             {
+                ans = min(ans, j-i+1);
                 sum -= nums[i];
                 i++;
-                ans = min(ans, j-i+1);
             }
             j++;
         }
-        if (ans == n) return 0;
-        return ans + 1;
+        if (ans == INT_MAX) return 0;
+        return ans;
     }
 };
