@@ -41,7 +41,6 @@ public:
             if (j == b)
             {
                 pos = i - b + 1;
-                j = p[j - 1];
             }
         }
         return pos;
