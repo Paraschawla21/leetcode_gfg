@@ -7,7 +7,7 @@ public:
             ans.push_back(temp);
             return;
         }
-        for (int j = i; j <= n; j++)
+        for (int j = i; j <= n-k+1; j++)
         {
             temp.push_back(j);
             solve(j+1, k-1, n, ans, temp);
