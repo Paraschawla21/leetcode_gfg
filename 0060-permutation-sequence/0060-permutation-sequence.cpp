@@ -18,13 +18,21 @@ public:
       }
     }
     string getPermutation(int n, int k) {
-      vector<string> ans;
-      string s = "", temp = "";
-      for(int i = 1; i < n + 1; i++)
-        s += to_string(i);
-      vector<bool> vis(n, false);
-      int cnt = 0;
-      recur(s, temp, vis, ans, cnt, k);
-      return ans.back();
+        string ans = "";
+        vector<int> str;
+        for (int i = 1; i <= n; i++)
+        {
+            str.push_back(i + '0');
+        }
+        for (auto i : str) cout << i << endl;
+        while (k-- > 1)
+        {
+            next_permutation(str.begin(), str.end());
+        }
+        for (auto i : str)
+        {
+            ans.push_back(i);
+        }
+        return ans;
     }
 };
