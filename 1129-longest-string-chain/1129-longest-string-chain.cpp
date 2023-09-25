@@ -1,41 +1,36 @@
 class Solution {
 public:
-    static bool comp(string &s1, string &s2)
+    static bool comparator(string &a, string &b)
     {
-        return s1.size() < s2.size();
+        return a.length() < b.length();
     }
-    bool checkPossible(string &s1, string &s2)
+    bool ifPredecessor(string &s1, string &s2)
     {
-        if (s1.size() != 1 + s2.size()) return false;
-        int i = 0;
-        int j = 0;
-        while (i < s1.size())
+        if (s1.length() + 1 != s2.length()) return false;
+        int index = 0;
+        for (int i = 0; i < s2.size(); i++)
         {
-            if (s1[i] == s2[j])
-            {
-                i++;
-                j++;
-            }
-            else i++;
+            if (s1[index] == s2[i]) index++;
         }
-        return i == s1.size() && j == s2.size();
+        if (index == s1.size()) return true;
+        return false;
     }
-    int longestStrChain(vector<string>& arr) {
-        sort(arr.begin(), arr.end(), comp);
-        int n = arr.size();
-        int maxi = 1;
-        vector<int> dp(n, 1);
-        for (int i = 0; i < n; i++)
+    int solve(int i, int j, vector<string> &words, vector<vector<int>> &dp)
+    {
+        if (i == words.size()) return 0;
+        if (dp[i][j+1] != -1) return dp[i][j+1];
+        int take = 0;
+        if (j == -1 or ifPredecessor(words[j], words[i]))
         {
-            for (int prev = 0; prev < i; prev++)
-            {
-                if (checkPossible(arr[i], arr[prev]) && 1 + dp[prev] > dp[i])
-                {
-                    dp[i] = 1 + dp[prev];
-                }
-            }
-            if (dp[i] > maxi) maxi = dp[i];
+            take = 1 + solve(i+1, i, words, dp);
         }
-        return maxi;
+        int notTake = solve(i+1, j, words, dp);
+        return dp[i][j+1] = max(take, notTake);
+    }
+    int longestStrChain(vector<string>& words) {
+        sort(words.begin(), words.end(), comparator);
+        int n = words.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+2, -1));
+        return solve(0, -1, words, dp);
     }
 };
